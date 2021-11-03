@@ -56,48 +56,23 @@
                 }
             }
 
-            let formatted_data1 = d3.map(data, d=>magic(d, "culmen_length_mm", "culmen_depth_mm"));
-            scatter_plot(formatted_data1,"#figure1",
-                title="Pinguines _ 1",
-                xLabel="culmen_length_mm",
-                yLabel="body_mass_g",
-                legend=species,
-                legendcolors=classic_colors,
-                margin=200
-            )
+            function magicplot(data, htmlid, x, y, ptitle, plegend, lcolors, pmargin = 200) {
+                let formatted_data = d3.map(data, d=>magic(d, x, y));
+                scatter_plot(formatted_data,htmlid,
+                    title=ptitle,
+                    xLabel=x,
+                    yLabel=y,
+                    legend=plegend,
+                    legendcolors=lcolors,
+                    margin=pmargin
+                )
+            }
 
-            let formatted_data2 = d3.map(data, d=>magic(d, "culmen_length_mm", "body_mass_g"));
-            scatter_plot(formatted_data2,"#figure2",
-                title="Pinguines _ 2",
-                xLabel="culmen_length_mm",
-                yLabel="flipper_length_mm",
-                legend=species,
-                legendcolors=classic_colors,
-                margin=200
-            )
-
-            // ALTERNATIVE LEGEND (function call overrides default)
-            let formatted_data3 = d3.map(data, d=>magic(d, "culmen_length_mm", "culmen_depth_mm", "island"));
-            scatter_plot(formatted_data3,"#figure3",
-                title="Pinguines _ 3",
-                xLabel="culmen_length_mm",
-                yLabel="culmen_depth_mm",
-                legend=island, // ALTERNATIVE LEGEND
-                legendcolors=classic_colors,
-                margin=200
-            )
-
-            // ALTERNATIVE LEGEND (function call overrides default)
-            let formatted_data4 = d3.map(data, d=>magic(d, "flipper_length_mm", "culmen_depth_mm", "island"));
-            scatter_plot(formatted_data4,"#figure4",
-                title="Pinguines _ 4",
-                xLabel="flipper_length_mm",
-                yLabel="culmen_depth_mm",
-                legend=island, // ALTERNATIVE LEGEND
-                legendcolors=classic_colors,
-                margin=200
-            )
-
+            magicplot(data, "#figure1", "culmen_length_mm", "body_mass_g", "Pinguines _ 1", species, classic_colors);
+            magicplot(data, "#figure2", "flipper_length_mm", "body_mass_g", "Pinguines _ 2", species, classic_colors);
+            magicplot(data, "#figure3", "culmen_length_mm", "culmen_depth_mm", "Pinguines _ 3", island, classic_colors);
+            magicplot(data, "#figure4", "flipper_length_mm", "culmen_depth_mm", "Pinguines _ 4", island, classic_colors);
+            
         }
     )
 </script>
